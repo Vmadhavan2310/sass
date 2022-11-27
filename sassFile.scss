@@ -1,0 +1,51 @@
+/* Declaring variables */
+$test:grey;
+@import 'button'; /* @import-Directly merging the other file to this file */
+@import '../Projects/menu'; /* @partials-Partially getting the values from other file */
+$bg-color:orange; /* Declaring variable */
+/* Mixin */
+@mixin test-case($para,$default:1px)/* Mixin accepets agument also */ {  /* Mixin is used to create the single block of css code it will be used later to the entire website */
+    background-color: $para;
+    color:yellowgreen;
+    font-size: large;
+    text-decoration: underline;
+    border:$default solid $para;
+}
+$font-colors:('primary':blue,'sec':orange,'ter':yellow); /* Accessing map variable when its defined with multiple colors */
+
+/* function declaration*/
+
+@function func($para1){
+    @return 2*$para1
+}
+.container{
+    color: map-get($font-colors,'ter');
+  
+    font-size: #{random()*1em}; //interpolation
+
+    &--heading-style{       /* Nesing using BEM method */
+        color: blue;
+    }
+    &--para{
+        background-color: $bg-color;
+    }
+    h4{
+        background-color: green;    /* Nesting with tag selector */
+    }
+}
+
+.btn{
+    background-color: $myPink;
+    
+}
+.heading{
+    h2{
+        @include test-case(brown,5px);  /* To use the mixin use @include and pass the arguments to the mixin and mixin will accept the default values if no arguments have been passed*/
+    }
+    h6{
+        @extend .container;
+    }
+    &--h3{
+        font-size: func(1rem);  //Invoking function
+    }
+}
